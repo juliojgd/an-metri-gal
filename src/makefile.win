@@ -50,7 +50,7 @@ entrada.cmx: entrada.ml
 	ocamlopt -c entrada.ml
 
 clean:
-	rm -f *.cmo *.cmi *.o core *.cmx
+	del -f *.cmo *.cmi *.o core *.cmx
 
 cclean:	clean
-	rm -f poe
+	del -f poe
