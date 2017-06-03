@@ -23,7 +23,7 @@
 
 (* ********************************************************************** *)
 (*
-   * Modulo principal del analizador
+   * Módulo principal del analizador
    *
    *
 *)
