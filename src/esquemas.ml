@@ -24,23 +24,23 @@
 
 (* ********************************************************************** *)
 (*
-   * En este fichero est�n contenidos los esquemas de las estrofas cl�sicas
+   * En este fichero están contenidos los esquemas de las estrofas clásicas
    * reconocidas.
    *
 *)
 
 (* ********************************************************************** *)
-let tablaEsquemas=Hashtbl.create 5;;
+let tablaEsquemas=Hashtbl.create 9;;
 
 let _=Hashtbl.add tablaEsquemas 1 [("Verso libre",['a'],"CO");("Verso libre",['A'],"CO")];;
 let _=Hashtbl.add tablaEsquemas 2 [("Pareado", ['a';'a'],"CO");("Pareado",['A';'A'],"CO")];;
-let _=Hashtbl.add tablaEsquemas 3 [("Terceto",['A';'-';'A'],"CO");("Sole�",['a';'-';'a'],"AS")];;
+let _=Hashtbl.add tablaEsquemas 3 [("Terceto",['A';'-';'A'],"CO");("Soleá",['a';'-';'a'],"AS")];;
 let _=Hashtbl.add tablaEsquemas 4 [("Cuarteto",['A';'B';'B';'A'],"CO");
 				    ("Redondilla",['a';'b';'b';'a'],"CO");
 				    ("Serventesio",['A';'B';'A';'B'],"CO");
 				    ("Cuarteta",['a';'b';'a';'b'],"CO");
 				    ("Copla",['-';'a';'-';'a'],"AS");
-				    ("Cuaderna v�a",['A';'A';'A';'A'],"CO")
+				    ("Cuaderna vía",['A';'A';'A';'A'],"CO")
 				  ] ;;
 
 let _=Hashtbl.add tablaEsquemas 5 [("Quinteto",['A';'B';'A';'B';'A'],"CO");
@@ -52,7 +52,7 @@ let _=Hashtbl.add tablaEsquemas 5 [("Quinteto",['A';'B';'A';'B';'A'],"CO");
 				    ("Lira",['a';'B';'a';'b';'B'],"CO")
 				  ];;
 
-let _=Hashtbl.add tablaEsquemas 6 [("Copla manrique�a",['a';'b';'c';'a';'b';'c'],"CO")];;
+let _=Hashtbl.add tablaEsquemas 6 [("Copla manriqueña",['a';'b';'c';'a';'b';'c'],"CO")];;
 
 let _=Hashtbl.add tablaEsquemas 8 [("Copla arte maior",['A';'B';'B';'A';'A';'C';'C';'A'],"CO");
 				    ("Octava real",['A';'B';'A';'B';'A';'B';'C';'C'],"CO");
@@ -61,7 +61,7 @@ let _=Hashtbl.add tablaEsquemas 8 [("Copla arte maior",['A';'B';'B';'A';'A';'C';
 				  ] ;;
 
 
-let _=Hashtbl.add tablaEsquemas 10 [("D�cima",['a';'b';'b';'a';'a';'c';'c';'d';'d';'c'],"CO")];;
+let _=Hashtbl.add tablaEsquemas 10 [("Décima",['a';'b';'b';'a';'a';'c';'c';'d';'d';'c'],"CO")];;
 
 let _=Hashtbl.add tablaEsquemas 14 [
   ("Soneto",['A';'B';'B';'A';'A';'B';'B';'A';'A';'B';'A';'A';'B';'A'],"CO");
