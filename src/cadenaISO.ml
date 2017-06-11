@@ -28,9 +28,9 @@
 (*
    *
    * Implementada para tratar de forma uniforme los strings con caracteres
-   * acentuados y otros s�mbolos.
+   * acentuados y otros símbolos.
    *
-   * M�todos p�blicos relevantes:
+   * Métodos públicos relevantes:
    *
    *   Constructor cadenaISO: string -> cadenaISO.
    *                         Crea una nueva instancia de cadenaISO a partir de

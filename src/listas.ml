@@ -24,7 +24,7 @@
 
 (*
    * Listas conteniendo vocales (con y sin tilde), consonantes, diptongos,
-   * hiatos, grupos conson�nticos y separadores.
+   * hiatos, grupos consonánticos y separadores.
    *
 *)
 
