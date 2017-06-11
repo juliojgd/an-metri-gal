@@ -1,0 +1,3 @@
+Versión | Descripción
+--------|----------------
+0.01    | Primera versión adaptada a Ocal 4.02 y Readme.md
