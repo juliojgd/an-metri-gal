@@ -1,35 +1,19 @@
 Exemplos empregados:
 --------------------
-Estos ficheiros de entrada est·n no directorio EJEMPLOS/
+Estos ficheiros de entrada est√°n no directorio EJEMPLOS/
 
 
-Arquivo		Poema			Autor		Libro
--------		-----			-----		-----
-agora.txt	Agora si que		E. Pondal	Queixumes dos pinos
-		È ocasiÛn
-
-campanas.txt	Campanas de		E. Pondal	Queixumes dos pinos
-		Bastabales
-
-duerme.txt	Abel MartÌn		A. Machado	Cancionero apÛcrifo
-		Los complementarios
-		Recuerdos de sueÒo,
-		fiebre y duermevela.
-		(IX)
-
-escri.txt				A.Machado	Cancionero apÛcrifo
-		Otras canciones
-		a Guiomar.
-
-son.txt		Dos sonetos a		A.Machado	Cancionero apÛcrifo
-		Guiomar (I)
-
-son2.txt	Dos sonetos a		A.Machado	Cancionero apÛcrifo
-		Guiomar (I)
-
-
+Arquivo|Poema|Autor|Libro
+------|-----|-----|-----
+agora.txt|Agora si que √© ocasi√≥n|E. Pondal|Queixumes dos pinos
+campanas.txt|Campanas de Bastabales|E. Pondal|Queixumes dos pinos
+duerme.txt|	Abel Mart√≠n. Los complementarios. Recuerdos de sue√±o, fiebre y duermevela. (IX)|A. Machado|Cancionero ap√≥crifo
+escri.txt|Otras canciones a Guiomar.|A.Machado|Cancionero ap√≥crifo
+son.txt|Dos sonetos a Guiomar (I)|A.Machado|Cancionero ap√≥crifo
+son2.txt|Dos sonetos a	Guiomar (I)|A.Machado|Cancionero ap√≥crifo
+		
 NOTA: 
-	En son.txt el soneto est· separado y deber· ser reconocido como
-	dos serventesios y dos tercetos, sin embargo en son2.txt deber·
+	En son.txt el soneto est√° separado y deber√° ser reconocido como
+	dos serventesios y dos tercetos, sin embargo en son2.txt deber√°
 	reconocerse el soneto.
 
