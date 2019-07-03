@@ -50,13 +50,13 @@ Como se aprecia es una notación mínima que no interfiere en el proceso de crea
 
 Este objetivo de identificación que parece fácilmente alcanzable en un primer vistazo del problema no lo es tanto al observar los subobjetivos necesarios:
 
--   Contado de sílabas. Para ello es necesario tener en cuenta.
+-   Contado de sílabas. Para ello es necesario tener en cuenta:
 
--   Hiatos.
+	-   Hiatos.
 
--   Diptongos.
+	-   Diptongos.
 
--   Tonicidad de la última palabra del verso.
+	-   Tonicidad de la última palabra del verso.
 
 -   Licencias métricas (sinalefas, etc.)
 
@@ -64,13 +64,13 @@ Este objetivo de identificación que parece fácilmente alcanzable en un primer 
 
 -   Obtención de la estructura de la estrofa analizada.
 
--   Teniendo en cuenta la rima.
+	-   Teniendo en cuenta la rima.
 
--   Teniendo en cuenta el arte (mayor o menor) de cada verso.
+	-   Teniendo en cuenta el arte (mayor o menor) de cada verso.
 
 -   Comparación de la estructura encontrada con las estructuras de estrofa almacenadas.
 
--   Teniendo en cuenta versos libres, etc.
+	-   Teniendo en cuenta versos libres, etc.
 
 Estos subobjetivos se han ido consiguiendo en la implementación aproximadamente en el orden descrito anteriormente.
 
