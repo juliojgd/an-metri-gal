@@ -164,7 +164,7 @@ let pon_separadores cade =
 *)
 
 let analiza cadena=
-  let _cadena=new cadenaISO (vuelta (String.lowercase cadena))
+  let _cadena=new cadenaISO (vuelta (String.lowercase_ascii cadena))
   in
   let _dondeparo=ref 0
   in
@@ -468,7 +468,7 @@ let encaja est esq=
   let esq_arte_mayor (_,lista,_) i=
     let a=(List.nth lista i)
     in
-    (a=(Char.uppercase a))
+    (a=(Char.uppercase_ascii a))
   in
   let rec aux i=
     let le=List.length est
