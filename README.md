@@ -25,9 +25,7 @@ El verso, que será la unidad fundamental, estará agrupado en estrofas y dividi
 Ha de notarse que este __analizador de texto en verso es factible para gallego y español, no siendo posible para otras lenguas como el inglés o el francés, al menos utilizando esta técnica ya que no hay una correspondencia tan directa entre conjuntos de grafemas (sílabas
 escritas) y unidades de entonación__.
 
-Estrictamente, para realizar un análisis totalmente completo del texto en verso, deberían considerarse sus unidades reales como son los fonemas y las unidades de entonación, siendo para ello necesario definir una
-notación nueva y completa, ya que la propia lectura o interpretación de un verso deja a veces al criterio subjetivo del lector donde enfatizar el acento rítmico o pausar un verso deshaciendo sinalefas o diptongos o
-uniendo un hiato.
+Estrictamente, para realizar un análisis totalmente completo del texto en verso, deberían considerarse sus unidades reales como son los fonemas y las unidades de entonación, siendo para ello necesario definir una notación nueva y completa, ya que la propia lectura o interpretación de un verso deja a veces al criterio subjetivo del lector donde enfatizar el acento rítmico o pausar un verso deshaciendo sinalefas o diptongos o uniendo un hiato.
 
 Esta situación se agrava con el verso libre, donde el posible esquema no nos guía para la elección de un esquema de entonación dentro del verso.
 
@@ -35,12 +33,12 @@ Me parece bastante claro que con la mera escritura de un verso y usando técnica
 
 Para un análisis más profundo y general sería necesario disponer de una notación suplementaria que debería usar el autor (similar a la musical).
 
-Por último recordar que el poema no contiene sólo métrica sino también ritmo, entonación, recursos literarios, por lo cual, como se explicita en los objetivos, el análisis que contempla esta práctica es un subconjunto del complejísimo análisis que sería resultado de tener en cuenta el autor, el tema, las circunstancias del poema, las influencias,
+Por último recordar que el poema no contiene sólo métrica sino también ritmo, entonación, recursos literarios, por lo cual, como se explicita en los objetivos, el análisis que contempla este proyecto es un subconjunto del complejísimo análisis que sería resultado de tener en cuenta el autor, el tema, las circunstancias del poema, las influencias,
 el idioma, etc.
 
 ### Objetivos.
 
-El objetivo de esta práctica es identificar estructuras de estrofas clásicas en poemas contenidos en ficheros de texto.
+El objetivo de este proyecto es identificar estructuras de estrofas clásicas en poemas contenidos en ficheros de texto.
 
 Los poemas tendrán una mínima notación adicional:
 
@@ -52,13 +50,13 @@ Como se aprecia es una notación mínima que no interfiere en el proceso de crea
 
 Este objetivo de identificación que parece fácilmente alcanzable en un primer vistazo del problema no lo es tanto al observar los subobjetivos necesarios:
 
--   Contado de sílabas. Para ello es necesario tener en cuenta.
+-   Contado de sílabas. Para ello es necesario tener en cuenta:
 
--   Hiatos.
+	-   Hiatos.
 
--   Diptongos.
+	-   Diptongos.
 
--   Tonicidad de la última palabra del verso.
+	-   Tonicidad de la última palabra del verso.
 
 -   Licencias métricas (sinalefas, etc.)
 
@@ -66,19 +64,19 @@ Este objetivo de identificación que parece fácilmente alcanzable en un primer 
 
 -   Obtención de la estructura de la estrofa analizada.
 
--   Teniendo en cuenta la rima.
+	-   Teniendo en cuenta la rima.
 
--   Teniendo en cuenta el arte (mayor o menor) de cada verso.
+	-   Teniendo en cuenta el arte (mayor o menor) de cada verso.
 
 -   Comparación de la estructura encontrada con las estructuras de estrofa almacenadas.
 
--   Teniendo en cuenta versos libres, etc.
+	-   Teniendo en cuenta versos libres, etc.
 
 Estos subobjetivos se han ido consiguiendo en la implementación aproximadamente en el orden descrito anteriormente.
 
 ### Notas en la implementación.
 
-Esta práctica ha sido implementada en el lenguaje funcional __Ocaml__, inicialmente en la versión 2.02 y posteriormente migrada a la versión 4.02.3.
+Este proyecto ha sido implementada en el lenguaje funcional __Ocaml__, inicialmente en la versión 2.02 y posteriormente migrada a la versión 4.02.3.
 
 En primer lugar es necesario hacer notar que fue necesaria la
 implementación de una clase cadenaISO.ml usando las características de orientación a objetos de Ocaml para tener una interfaz regular para el tratamiento de strings que contienen caracteres con tilde y otros símbolos, ya que para Ocaml, esos caracteres especiales están constituídos dentro de un string por dos posiciones, lo que complicaba sobremanera la implementación ya que Ocaml no los trataba como caracteres individuales.
