@@ -1,7 +1,7 @@
 
 ## Pre-requisites:
-- Opam 1.2.2: `sudo apt get opam` and then ` opam switch an-metri-gal --alias-of 4.02.3`
-- Ocaml 4.02.3 will be installed now
+- Opam 1.2.2: `sudo apt get opam` and then ` opam switch an-metri-gal --alias-of 4.05.0`
+- Ocaml 4.05.0 will be installed now
 - Dune 1.2.1: `opam install dune`
 
 ## Steps:
