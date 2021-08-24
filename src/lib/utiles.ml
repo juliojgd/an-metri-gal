@@ -145,7 +145,7 @@ let pon_separadores cade =
     then
       (
        if (es_separador (String.sub cade i 1))
-       then Bytes.set cade i '|'
+       then Bytes.set (Bytes.of_string cade) i '|'
        else ();
        aux (i+1)
       )
