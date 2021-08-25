@@ -1,0 +1,14 @@
+{
+  "name": "an-metri-gal",
+  "version": "1.0.0",
+
+  "esy": {
+    "build": ["dune build"],
+    "buildEnv": {"DUNE_BUILD_DIR": "#{self.target_dir}"}
+  },
+
+  "dependencies": {
+    "@opam/dune": "1.2.1",
+    "ocaml": "4.06.1"
+  }
+}

@@ -27,11 +27,8 @@
    *
    *
 *)
-
-open Arg;;
-open Listas;;
-open Entrada;;
-open Utiles;;
+open Lib.Entrada;;
+open Lib.Utiles;;
 
 let argumentos=Sys.argv;;
 

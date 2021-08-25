@@ -39,7 +39,7 @@ let fin nomfich=
        exit 1
       );;
 
-let rec linea fich=
+let linea fich=
   try
     input_line fich
   with

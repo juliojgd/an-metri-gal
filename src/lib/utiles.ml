@@ -43,7 +43,7 @@ let vuelta st=
       try
 	ob#s
       with
-	Invalid_argument (s)-> ""
+	Invalid_argument (_)-> ""
     in
     if t="" then "" else (aux pos)^t
   in
@@ -145,7 +145,7 @@ let pon_separadores cade =
     then
       (
        if (es_separador (String.sub cade i 1))
-       then Bytes.set cade i '|'
+       then Bytes.set (Bytes.of_string cade) i '|'
        else ();
        aux (i+1)
       )
@@ -164,7 +164,7 @@ let pon_separadores cade =
 *)
 
 let analiza cadena=
-  let _cadena=new cadenaISO (vuelta (String.lowercase cadena))
+  let _cadena=new cadenaISO (vuelta (String.lowercase_ascii cadena))
   in
   let _dondeparo=ref 0
   in
@@ -195,14 +195,14 @@ let analiza cadena=
       _silabas := (!_silabas)@[ vuelta (_cadena#sub !_dondeparo ((_cadena#donde)-(!_dondeparo)))];
       _dondeparo := _cadena#donde;
     with
-      Invalid_argument (s) ->
+      Invalid_argument (_) ->
 	(
 	 r := true;
 	 _silabas := (!_silabas)@[ vuelta (
 				   try
 				     _cadena#sub !_dondeparo ((_cadena#donde+1)-(!_dondeparo))
 				   with
-				     Invalid_argument (s1) ->
+				     Invalid_argument (_) ->
 				       _cadena#sub !_dondeparo ((_cadena#donde)-(!_dondeparo))
 )]
 	)
@@ -222,7 +222,7 @@ let quita_acent cade=
     let car=
       try
 	(String.sub cade d 1)
-      with Invalid_argument (s) -> ""
+      with Invalid_argument (_) -> ""
     in
     if car=""
     then car
@@ -280,7 +280,7 @@ let cuenta_silabas ver=
 	try
 	  ob2#s
 	    with
-	  Invalid_argument (s) -> ""
+	  Invalid_argument (_) -> ""
       in
       if t="" then ""
       else if t=" " then (aux a) else (t^(aux a))
@@ -291,7 +291,7 @@ let cuenta_silabas ver=
     let rec aux v=
       match v with
 	[]           -> 0
-      | a::[]        -> 0
+      | _::[]        -> 0
       | a::b::resto  ->
 	  let uni=((ultima_letra (quita_espacios a))^(primera_letra (quita_espacios b)))
 	  in
@@ -346,7 +346,7 @@ let sin_tildes st=
       try
 	ob#s
       with
-	Invalid_argument (s)->""
+	Invalid_argument (_)->""
     in
     if car=""
     then car
@@ -373,7 +373,7 @@ let solo_vocales st=
     let car=
       try
 	ob#s
-      with Invalid_argument (s) -> ""
+      with Invalid_argument (_) -> ""
     in
     if car=""
     then car
@@ -397,11 +397,11 @@ let riman_en_asonante lista=
    in
   let sin_consonantes=List.map solo_vocales temp
   in
-  let rec aux f k=
+  let rec aux _ k=
     match k with
       []          -> true
     | a::b::resto -> (a=b) && (aux b resto)
-    | a::[]       ->true
+    | _::[]       ->true
   in
   aux "" sin_consonantes;;
 
@@ -414,11 +414,11 @@ let riman_en_consonante lista=
   *)
   let temp=List.map sin_tildes lista
    in
-  let rec aux f k=
+  let rec aux _ k=
     match k with
       []          -> true
     | a::b::resto -> (a=b) && (aux b resto)
-    | a::[]       ->true
+    | _::[]       ->true
   in
   aux "" temp;;
 
@@ -465,10 +465,10 @@ let encaja est esq=
     let (i,_)=(List.nth l j)
     in (i>8)
   in
-  let esq_arte_mayor (nmb,lista,r) i=
+  let esq_arte_mayor (_,lista,_) i=
     let a=(List.nth lista i)
     in
-    (a=(Char.uppercase a))
+    (a=(Char.uppercase_ascii a))
   in
   let rec aux i=
     let le=List.length est
