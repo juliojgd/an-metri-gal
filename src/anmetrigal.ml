@@ -37,7 +37,7 @@ let _=
    if ((Array.length argumentos) != 3)
    then
      (
-      prerr_string("\n Uso:\n\tpoe <fich_entrada> <fich_salida>\n");
+      prerr_string("\n Usage:\n\tanmetrigal <input_file> <output_file>\n");
       exit 1
      )
   );;

@@ -1,0 +1,7 @@
+lib: [
+  "/home/xulio/REPOS/ocaml/an-metri-gal/src/_esy/default/store/b/an_metri_gal-d28d39d9/install/default/lib/anmetrigal/META" {"META"}
+  "/home/xulio/REPOS/ocaml/an-metri-gal/src/_esy/default/store/b/an_metri_gal-d28d39d9/install/default/lib/anmetrigal/opam" {"opam"}
+]
+bin: [
+  "/home/xulio/REPOS/ocaml/an-metri-gal/src/_esy/default/store/b/an_metri_gal-d28d39d9/install/default/bin/anmetrigal.exe" {"anmetrigal.exe"}
+]

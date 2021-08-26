@@ -1,5 +1,5 @@
 (executable
- (name main)
+ (name anmetrigal)
  (libraries lib)
-  (public_name poe.exe))
+  (public_name anmetrigal.exe))
 
