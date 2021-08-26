@@ -1,8 +1,15 @@
 
 ## Pre-requisites:
-- Opam 1.2.2: `sudo apt get opam` and then ` opam switch an-metri-gal --alias-of 4.06.1`
+- Opam 1.2.2: 
+   * `sudo apt get opam`
+   * `opam switch set 4.06.1`
+   * `opam switch an-metri-gal --alias-of 4.06.1`
 - Ocaml 4.06.1 will be installed now
-- Dune 1.2.1: `opam install dune`
+   * `ocaml --version` should output: `The OCaml toplevel, version 4.06.1`
+- Dune 1.2.1: 
+   * `opam install dune`
+   * `opam --version`should output `1.2.2`
+ 
 
 ## Steps with Dune
 - Install Ocaml, Opam and Dune in the versions mentioned. See https://medium.com/@bobbypriambodo/starting-an-ocaml-app-project-using-dune-d4f74e291de8
@@ -11,7 +18,7 @@
 ```sh
 eval `opam config env`
 ```
-- Type `dune build main.exe`
+- Type `dune build anmetrigal.exe`
 - See results in `./_build/default`directory
 
 
