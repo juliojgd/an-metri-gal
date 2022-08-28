@@ -38,12 +38,14 @@ jobs:
         run: |
           opam install dune
           eval $(opam env)
+          dune --version
           
       - name: Build AnMetriGal
         run: |
-          cd src
           eval $(opam env)
-          dune build anmetrigal.exe
+          cd src
+          dune --version
+          dune build anmetrigal.exe --verbose
 
       - name: Upload the build artifact
         uses: actions/upload-artifact@v2
