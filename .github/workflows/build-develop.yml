@@ -34,12 +34,15 @@ jobs:
 
       - run: opam install . --deps-only --with-doc --with-test
       
-      - run: |
+      - name: Install dune
+        run: |
           opam install dune
           eval $(opam env)
           
-      - run: |
+      - name: Build AnMetriGal
+        run: |
           cd src
+          eval $(opam env)
           dune build anmetrigal.exe
 
       - name: Upload the build artifact
