@@ -24,7 +24,21 @@ eval `opam config env`
 
 
 ## Steps with Esy
+- Install nvm
+- Install npm and node via nvm
+```sh
+$ node -v
+v16.17.0
+```
+
+```sh
+$ npm --version
+8.15.0
+```
+
 - Install Esy following: https://esy.sh/docs/en/getting-started.html
+- npm install -g esy
+- `esy --version` should output `0.6.12-dev`
 - type `cd src` 
 - Type `esy install`
 - Type `esy build`
