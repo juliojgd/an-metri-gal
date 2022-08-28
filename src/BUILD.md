@@ -1,14 +1,14 @@
 
 ## Pre-requisites:
-- Opam 1.2.2: 
+- Opam 2.1.2: 
    * `sudo apt get opam`
-   * `opam switch set 4.06.1`
-   * `opam switch an-metri-gal --alias-of 4.06.1`
-- Ocaml 4.06.1 will be installed now
-   * `ocaml --version` should output: `The OCaml toplevel, version 4.06.1`
-- Dune 1.2.1: 
+   * `opam switch set 4.13.1`
+   * `opam switch an-metri-gal --alias-of 4.13.1`
+- Ocaml 4.13.1 will be installed now
+   * `ocaml --version` should output: `The OCaml toplevel, version 4.13.1`
+- Dune 3.4.1: 
    * `opam install dune`
-   * `opam --version`should output `1.2.2`
+   * `opam --version` should output `3.4.1`
  
 
 ## Steps with Dune
