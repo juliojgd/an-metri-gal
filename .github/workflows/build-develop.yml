@@ -45,7 +45,7 @@ jobs:
           eval $(opam env)
           cd src
           dune --version
-          dune build anmetrigal.exe --verbose
+          dune build _build/default/anmetrigal.exe --verbose
 
       - name: Upload the build artifact
         uses: actions/upload-artifact@v2
