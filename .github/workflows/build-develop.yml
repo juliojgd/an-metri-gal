@@ -33,7 +33,7 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
-      - run: opam install . --deps-only --with-doc --with-test
+      - run: opam install ./src --deps-only --with-doc --with-test
 
       - run: "cd src; opam exec -- dune build"
 
