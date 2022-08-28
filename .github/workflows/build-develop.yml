@@ -34,9 +34,13 @@ jobs:
 
       - run: opam install . --deps-only --with-doc --with-test
       
-      - run: opam install dune
-
-      - run: dune build anmetrigal.exe
+      - run: |
+          opam install dune
+          eval $(opam env)
+          
+      - run: |
+          cd src
+          dune build anmetrigal.exe
 
       - name: Upload the build artifact
         uses: actions/upload-artifact@v2
