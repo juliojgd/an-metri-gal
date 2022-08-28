@@ -4,11 +4,12 @@
    * `sudo apt get opam`
    * `opam switch set 4.13.1`
    * `opam switch an-metri-gal --alias-of 4.13.1`
+   * `opam --version` should output `2.1.2`
 - Ocaml 4.13.1 will be installed now
    * `ocaml --version` should output: `The OCaml toplevel, version 4.13.1`
 - Dune 3.4.1: 
    * `opam install dune`
-   * `opam --version` should output `3.4.1`
+   * `dune --version` should output `3.4.1`
  
 
 ## Steps with Dune
@@ -23,7 +24,21 @@ eval `opam config env`
 
 
 ## Steps with Esy
+- Install nvm
+- Install npm and node via nvm
+```sh
+$ node -v
+v16.17.0
+```
+
+```sh
+$ npm --version
+8.15.0
+```
+
 - Install Esy following: https://esy.sh/docs/en/getting-started.html
+- npm install -g esy
+- `esy --version` should output `0.6.12-dev`
 - type `cd src` 
 - Type `esy install`
 - Type `esy build`
