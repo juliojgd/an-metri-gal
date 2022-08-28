@@ -1,0 +1,49 @@
+name: Build develop workflow
+
+on:
+  pull_request:
+    types: [closed]
+    branches: ['develop']
+  workflow_dispatch:
+    inputs:
+      BASELINE:
+        description: 'Baseline branch'
+        required: true
+        default: 'main'
+        
+jobs:
+  build:
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - ubuntu-latest
+          - windows-latest
+        ocaml-compiler:
+          - 4.13.x
+          - 4.08.x
+          - 4.06.x
+
+runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Use OCaml ${{ matrix.ocaml-compiler }}
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: ${{ matrix.ocaml-compiler }}
+
+      - run: opam install . --deps-only --with-doc --with-test
+
+      - run: opam exec -- dune build
+
+      - run: opam exec -- dune runtest
+
+      - name: Upload the build artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.os }}-${{ matrix.ocaml-version }}-world.exe
+          path: _build/default/world.exe
