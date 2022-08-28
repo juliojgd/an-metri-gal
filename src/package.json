@@ -8,7 +8,7 @@
   },
 
   "dependencies": {
-    "@opam/dune": "1.2.1",
-    "ocaml": "4.06.1"
+    "@opam/dune": "2.1.2",
+    "ocaml": "4.13.1"
   }
 }
