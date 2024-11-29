@@ -21,7 +21,7 @@ eval `opam config env`
 ```
 - Type `dune build anmetrigal.exe`
 - See results in `./_build/default`directory
-
+- Run
 
 ## Steps with Esy
 - Install nvm
