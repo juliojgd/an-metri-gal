@@ -48,7 +48,7 @@ jobs:
           dune build _build/default/anmetrigal.exe --verbose
 
       - name: Upload the build artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: anmetrigal.exe
           path: src/_build/default/anmetrigal.exe
