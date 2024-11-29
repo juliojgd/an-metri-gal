@@ -1,19 +1,20 @@
 
 ## Pre-requisites:
 - Opam 2.1.2: 
-   * `sudo apt get opam`
-   * `opam switch set 4.13.1`
-   * `opam switch an-metri-gal --alias-of 4.13.1`
+   * `sudo apt install opam`
+   * `opam switch create 5.2.1`
    * `opam --version` should output `2.1.2`
-- Ocaml 4.13.1 will be installed now
-   * `ocaml --version` should output: `The OCaml toplevel, version 4.13.1`
+- Ocaml 5.2.1 will be installed now
+   * `ocaml --version` should output: `OCaml version 5.2.1`
 - Dune 3.4.1: 
    * `opam install dune`
-   * `dune --version` should output `3.4.1`
+   * `dune --version` should output `3.17.0`
  
+
 
 ## Steps with Dune
 - Install Ocaml, Opam and Dune in the versions mentioned. See https://medium.com/@bobbypriambodo/starting-an-ocaml-app-project-using-dune-d4f74e291de8
+-Alternatively install Ocaml with asdf: https://github.com/asdf-community/asdf-ocaml
 - type `cd src` 
 - Type 
 ```sh
@@ -24,21 +25,22 @@ eval `opam config env`
 
 
 ## Steps with Esy
-- Install nvm
-- Install npm and node via nvm
+- Install asdf: https://asdf-vm.com/guide/getting-started.html
+- Install asdf nodejs plugin: asdf plugin add nodejs https://github.com/asdf-vm/asdf-nodejs.git
+- Install a node&npm version: asdf install nodejs 23.3.0
 ```sh
 $ node -v
-v16.17.0
+v23.3.0
 ```
 
 ```sh
 $ npm --version
-8.15.0
+10.9.0
 ```
 
 - Install Esy following: https://esy.sh/docs/en/getting-started.html
 - npm install -g esy
-- `esy --version` should output `0.6.12-dev`
+- `esy --version` should output `0.8.0`
 - type `cd src` 
 - Type `esy install`
 - Type `esy build`
