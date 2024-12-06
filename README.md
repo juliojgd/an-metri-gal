@@ -2,7 +2,7 @@
 Análise métrico de texto en verso en lingua galega (Galician language) gl-ES
 
 <!-- TOC depthFrom:1 depthTo:6 withLinks:1 updateOnSave:1 orderedList:0 -->
-
+sss
 - [an-metri-gal](#an-metri-gal)
 	- [Overview - Introducción](#overview-introduccin)
 		- [Objetivos.](#objetivos)
