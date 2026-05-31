@@ -66,51 +66,29 @@ class cadenaISO cadena=
 
     method longitud = String.length _cadena
 
+    method private next_char_at pos =
+      let t = String.sub _cadena pos 1 in
+      if t = "\129"
+      then (String.sub _cadena pos 2, 2)
+      else (t, 1)
+
     method get =
-      let t=String.sub _cadena _donde 1
-      in
-      if t="\129"
-      then (String.sub _cadena _donde 2)
-      else t
+      fst (self#next_char_at _donde)
 
     method get2 =
-      let (car,inc)=
-	let t=String.sub _cadena _donde 1
-	in
-	if t="\129"
-	then ( (String.sub _cadena _donde 2), 2 )
-	else ( t, 1 )
-      in
-      let car2=
-	let t=String.sub _cadena (_donde+inc) 1
-	in
-	if t="\129"
-	then  (String.sub _cadena (_donde+inc) 2)
-	else  t
-      in
-      car^car2
+      let car, inc = self#next_char_at _donde in
+      let car2, _ = self#next_char_at (_donde + inc) in
+      car ^ car2
 
     method avanza d=
       if (_donde+d)<self#longitud then _donde <- _donde+d else raise (Invalid_argument "Clase cadenaISO")
     method s =
-      let (car,inc)=
-	let t=String.sub _cadena _donde 1
-	in
-	if t="\129"
-	then ( (String.sub _cadena _donde 2), 2 )
-	else ( t, 1 )
-      in
+      let car, inc = self#next_char_at _donde in
       _donde <- _donde + inc;
       car
 
     method sinc=
-      let car=
-	let t=String.sub _cadena _donde 1
-	in
-	if t="\129"
-	then  (String.sub _cadena _donde 2)
-	else  t
-      in
+      let car, _ = self#next_char_at _donde in
       car
 
     method sub i f=String.sub _cadena i f
