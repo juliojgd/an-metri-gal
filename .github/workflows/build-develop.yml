@@ -42,7 +42,7 @@ jobs:
           
       - name: Build AnMetriGal
         run: |
-          eval $(opam env)
+          eval "$(opam env)"
           dune --version
           dune build _build/default/bin/anmetrigal.exe --verbose
 
