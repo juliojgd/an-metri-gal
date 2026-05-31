@@ -14,15 +14,14 @@
 
 ## Steps with Dune
 - Install Ocaml, Opam and Dune in the versions mentioned. See https://medium.com/@bobbypriambodo/starting-an-ocaml-app-project-using-dune-d4f74e291de8
--Alternatively install Ocaml with asdf: https://github.com/asdf-community/asdf-ocaml
-- type `cd src` 
-- Type 
+- Alternatively install Ocaml with asdf: https://github.com/asdf-community/asdf-ocaml
+- At repository root, run:
 ```sh
-eval `opam config env`
+eval "$(opam env)"
+dune build
+dune test
 ```
-- Type `dune build anmetrigal.exe`
-- See results in `./_build/default`directory
-- Run
+- The executable is generated in `_build/default/bin/anmetrigal.exe`.
 
 ## Steps with Esy
 - Install asdf: https://asdf-vm.com/guide/getting-started.html
@@ -41,7 +40,6 @@ $ npm --version
 - Install Esy following: https://esy.sh/docs/en/getting-started.html
 - npm install -g esy
 - `esy --version` should output `0.8.0`
-- type `cd src` 
 - Type `esy install`
 - Type `esy build`
 - See results in `_esy/default/store/b/an_metri_gal-7ed22e74/install/default/` directory

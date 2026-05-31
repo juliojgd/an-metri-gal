@@ -1,0 +1,4 @@
+(test
+ (name test_anmetrigal)
+ (libraries lib alcotest)
+ (instrumentation (backend bisect_ppx)))
