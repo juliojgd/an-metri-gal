@@ -29,36 +29,30 @@
    *
    *
 *)
-let fin nomfich=
+let fin nomfich =
   try
     open_in nomfich
   with
-    Sys_error (er) ->
-      (
-       prerr_endline ("ERROR: Al abrir "^nomfich^" "^er);
-       exit 1
-      );;
+  | Sys_error er ->
+      prerr_endline ("ERROR: Al abrir " ^ nomfich ^ " " ^ er);
+      exit 1
+;;
 
-let linea fich=
+let linea fich =
   try
-    input_line fich
+    Some (input_line fich)
   with
-    End_of_file -> "FINFICH";;
+  | End_of_file -> None
+;;
 
-let haz_lista st=
-  let f=fin st
+let haz_lista st =
+  let fichero = fin st in
+  let rec aux acc =
+    match linea fichero with
+    | Some line -> aux (line :: acc)
+    | None ->
+        close_in fichero;
+        List.rev acc
   in
-  let rec aux a=
-    (
-     let t=linea f
-     in
-     if (t="FINFICH")
-     then
-       (
-	close_in f;
-	[]
-       )
-     else t::(aux a)
-    )
-  in
-  aux 0;;
+  aux []
+;;

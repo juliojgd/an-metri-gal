@@ -115,25 +115,23 @@ let es_consonante cade =
    *
    *
 *)
-let rec quita_vacio l=
-  match l with
-    []    -> []
-  | a::l1 -> if a="" then quita_vacio l1 else a::(quita_vacio l1);;
+let quita_vacio l =
+  List.filter (fun line -> line <> "") l;;
 
-let separa_estrofas l=
-  let t=quita_vacio l
+let separa_estrofas l =
+  let add_line line = function
+    | [] -> [[line]]
+    | stanza :: rest -> (line :: stanza) :: rest
   in
-  let rec aux lista=
-    match lista with
-      []    -> [[]]
-    | a::l1 ->
-	let t2=aux l1
-	in
-	if (String.contains a '@')
-	then []::t2
-	else (a::(List.hd (t2)))::(List.tl t2)
-  in
-  aux t;;
+  List.fold_right
+    (fun line acc ->
+      if String.contains line '@' then
+        [] :: acc
+      else
+        add_line line acc)
+    (quita_vacio l)
+    [[]]
+;;
 
 
 let es_separador st=(List.mem st separadores);;
@@ -163,51 +161,48 @@ let pon_separadores cade =
    *
 *)
 
-let analiza cadena=
-  let _cadena=new cadenaISO (vuelta (String.lowercase_ascii cadena))
+let analiza cadena =
+  let cadena_iso = new cadenaISO (vuelta (String.lowercase_ascii cadena)) in
+  let rec consume_until_vowel () =
+    if es_vocal cadena_iso#get then
+      ()
+    else (
+      ignore cadena_iso#s;
+      consume_until_vowel ())
   in
-  let _dondeparo=ref 0
-  in
-  let _donde=ref 0
-  in
-  let r=ref false
-  in
-  let _silabas=ref []
-  in
-  while (not !r) do
-    try
-      while (not (es_vocal _cadena#get)) do
-	       ignore _cadena#s
-      done;
-      if  (es_hiato _cadena#get2 )
-      then
-	(ignore _cadena#s;())
+  let consume_current_syllable () =
+    consume_until_vowel ();
+    if es_hiato cadena_iso#get2 then
+      ignore cadena_iso#s
+    else (
+      if es_diptongo cadena_iso#get2 then (
+        ignore cadena_iso#s;
+        ignore cadena_iso#s)
       else
-	(
-	 if (es_diptongo _cadena#get2 )
-	 then (ignore _cadena#s; ignore _cadena#s)
-	 else ignore _cadena#s;
-	 if (es_grupo_valido _cadena#get2 )
-	 then (ignore _cadena#s; ignore _cadena#s;())
-	 else
-	   (ignore _cadena#s;())
-	);
-      _silabas := (!_silabas)@[ vuelta (_cadena#sub !_dondeparo ((_cadena#donde)-(!_dondeparo)))];
-      _dondeparo := _cadena#donde;
+        ignore cadena_iso#s;
+      if es_grupo_valido cadena_iso#get2 then (
+        ignore cadena_iso#s;
+        ignore cadena_iso#s)
+      else
+        ignore cadena_iso#s)
+  in
+  let rec collect_syllables where_stopped acc =
+    try
+      consume_current_syllable ();
+      let next_stop = cadena_iso#donde in
+      let syllable = vuelta (cadena_iso#sub where_stopped (next_stop - where_stopped)) in
+      collect_syllables next_stop (syllable :: acc)
     with
-      Invalid_argument (_) ->
-	(
-	 r := true;
-	 _silabas := (!_silabas)@[ vuelta (
-				   try
-				     _cadena#sub !_dondeparo ((_cadena#donde+1)-(!_dondeparo))
-				   with
-				     Invalid_argument (_) ->
-				       _cadena#sub !_dondeparo ((_cadena#donde)-(!_dondeparo))
-)]
-	)
-  done;
-  List.rev !_silabas;;
+    | Invalid_argument _ ->
+        let trailing_syllable =
+          try
+            cadena_iso#sub where_stopped ((cadena_iso#donde + 1) - where_stopped)
+          with
+          | Invalid_argument _ -> cadena_iso#sub where_stopped (cadena_iso#donde - where_stopped)
+        in
+        vuelta trailing_syllable :: acc
+  in
+  collect_syllables 0 [];;
 
 
 (* ********************************************************************** *)
@@ -387,6 +382,11 @@ let solo_vocales st=
 
 
 (* ********************************************************************** *)
+let rec todos_iguais lista =
+  match lista with
+  | [] | [_] -> true
+  | a :: (b :: _ as resto) -> (a = b) && todos_iguais resto;;
+
 let riman_en_asonante lista=
   (*
      * Funcion que devuelve true  si la lista de terminaciones de verso
@@ -397,13 +397,7 @@ let riman_en_asonante lista=
    in
   let sin_consonantes=List.map solo_vocales temp
   in
-  let rec aux _ k=
-    match k with
-      []          -> true
-    | a::b::resto -> (a=b) && (aux b resto)
-    | _::[]       ->true
-  in
-  aux "" sin_consonantes;;
+  todos_iguais sin_consonantes;;
 
 (* ********************************************************************** *)
 let riman_en_consonante lista=
@@ -414,13 +408,7 @@ let riman_en_consonante lista=
   *)
   let temp=List.map sin_tildes lista
    in
-  let rec aux _ k=
-    match k with
-      []          -> true
-    | a::b::resto -> (a=b) && (aux b resto)
-    | _::[]       ->true
-  in
-  aux "" temp;;
+  todos_iguais temp;;
 
 
 (* ********************************************************************** *)
@@ -461,23 +449,13 @@ let encaja est esq=
      *  coinciden en el arte (mayor o menor) de sus corresp. versos.
      *
   *)
-  let  verso_arte_mayor l j=
-    let (i,_)=(List.nth l j)
-    in (i>8)
-  in
-  let esq_arte_mayor (_,lista,_) i=
-    let a=(List.nth lista i)
-    in
-    (a=(Char.uppercase_ascii a))
-  in
-  let rec aux i=
-    let le=List.length est
-    in
-    if i<le
-    then ((verso_arte_mayor est i)=(esq_arte_mayor esq i))&&(aux (i+1))
-    else true
-  in
-  aux 0;;
+  let verso_arte_mayor (silabas, _) = silabas > 8 in
+  let esq_arte_mayor letra = letra = Char.uppercase_ascii letra in
+  let (_, esquema, _) = esq in
+  List.for_all2
+    (fun verso letra -> verso_arte_mayor verso = esq_arte_mayor letra)
+    est esquema
+;;
 
 
 (* ********************************************************************** *)

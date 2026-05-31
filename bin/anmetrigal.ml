@@ -27,91 +27,57 @@
    *
    *
 *)
-open Lib.Entrada;;
-open Lib.Utiles;;
+open Lib.Entrada
+open Lib.Utiles
 
-let argumentos=Sys.argv;;
+let print_usage_and_exit () =
+  prerr_string "\n Usage:\n\tanmetrigal <input_file> <output_file>\n";
+  exit 1
+;;
 
-let _=
-  (
-   if ((Array.length argumentos) != 3)
-   then
-     (
-      prerr_string("\n Usage:\n\tanmetrigal <input_file> <output_file>\n");
-      exit 1
-     )
-  );;
+let validate_input_file input_file =
+  if not (Sys.file_exists input_file) then (
+    prerr_string ("\n Error: No existe fichero de entrada: " ^ input_file ^ ".\n");
+    exit 2)
+;;
 
-let fentrada=argumentos.(1);;
-let _ =
-  (
-   if (not (Sys.file_exists(fentrada)))
-   then
-     (
-      prerr_string("\n Error: No existe fichero de entrada: "^fentrada^".\n");
-	exit 2
-     )
-  )
-      ;;
+let output_verse out_channel verse (num_silabas, _) =
+  output_string out_channel (verse ^ "  \t" ^ string_of_int num_silabas ^ "\n")
+;;
 
+let format_esquema esquema =
+  esquema
+  |> List.map (String.make 1)
+  |> String.concat " "
+;;
 
+let print_estrofa_result out_channel versos =
+  let num_rima_lista = trata_estrofa versos in
+  List.iter2 (output_verse out_channel) versos num_rima_lista;
+  output_string out_channel ("\nEstrofa de " ^ string_of_int (num_versos versos) ^ " versos.\n");
+  let nom, esq, rim = identifica_estrofa num_rima_lista in
+  output_string out_channel ("É un/unha " ^ nom ^ ".\n");
+  output_string out_channel ("Esquema:  " ^ format_esquema esq ^ "\n");
+  let rima = if rim = "CO" then "consoante" else "asoante" in
+  output_string out_channel ("Ten rima " ^ rima ^ ".\n");
+  output_string out_channel "=================================\n\n"
+;;
 
-let lista_estrofas=separa_estrofas (haz_lista fentrada);;
+let analyze_file input_file output_file =
+  let lista_estrofas = separa_estrofas (haz_lista input_file) in
+  let out_channel = open_out output_file in
+  List.iter (print_estrofa_result out_channel) lista_estrofas;
+  output_string out_channel "\n\n";
+  close_out out_channel;
+  print_string "\nFicheiro analizado con éxito.\n"
+;;
 
-
-let h_salida=open_out argumentos.(2);;
-
-let rec recorre_estrofa listapares listaversos=
-  match listapares with
-    []         -> ()
-  | (n,_)::l3  ->
-      let verso=List.hd listaversos
-      in
-      (
-       output_string h_salida (verso^"  \t"^(string_of_int n)^"\n");
-       recorre_estrofa l3 (List.tl listaversos)
-      )
-	;;
-
-let rec para_toda_estrofa l=
-  match l with
-    []      ->  ()
-  | est::l1 ->
-      let num_rima_lista=trata_estrofa est
-      in
-      (
-       recorre_estrofa num_rima_lista est;
-       let n=string_of_int (num_versos est)
-       in
-       output_string h_salida ("\nEstrofa de "^n^" versos.\n");
-       let (nom,esq,rim)=identifica_estrofa num_rima_lista
-       in
-       (
-	output_string h_salida ("É un/unha "^nom^".\n");
-	output_string h_salida ("Esquema:  ");
-	let rec imp_esq l5=
-	  match l5 with
-	    []    -> ""
-	  | a1::b -> ((String.make 1 a1)^" ")^imp_esq b
-	in
-	let p=imp_esq esq
-	in output_string h_salida (p^"\n");
-	let rima=if rim="CO" then "consoante" else "asoante"
-	in
-	output_string h_salida ("Ten rima "^rima^".\n");
-	output_string h_salida ("=================================\n\n");
-       );
-
-       para_toda_estrofa l1
-      )
-	;;
-
-
-
-let _=para_toda_estrofa lista_estrofas ;;
-let _=  output_string h_salida "\n\n";;
-let _=close_out h_salida;;
-let _=print_string("\nFicheiro analizado con éxito.\n");;
-let _=exit 0;;
+let () =
+  match Array.to_list Sys.argv with
+  | [_; input_file; output_file] ->
+      validate_input_file input_file;
+      analyze_file input_file output_file;
+      exit 0
+  | _ -> print_usage_and_exit ()
 
 (* ************************************************************************ *)
