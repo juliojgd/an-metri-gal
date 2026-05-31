@@ -48,7 +48,7 @@ jobs:
 
       - name: Run tests
         run: |
-          eval $(opam env)
+          eval "$(opam env)"
           dune test --verbose
 
       - name: Upload the build artifact
