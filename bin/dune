@@ -1,5 +1,4 @@
 (executable
  (name anmetrigal)
  (libraries lib)
-  (public_name anmetrigal.exe))
-
+  (public_name anmetrigal))

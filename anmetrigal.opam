@@ -1,5 +1,5 @@
-opam-version: "2.1.2"
-name: "an-metri-gal"
+opam-version: "2.0"
+name: "anmetrigal"
 version: "0.2.0"
 synopsis: "Analise metrico de texto en verso en lingua galega (Galician language) gl-ES"
 maintainer: "juliojgd"
@@ -8,3 +8,13 @@ homepage: "https://github.com/juliojgd/an-metri-gal"
 bug-reports: "https://github.com/juliojgd/an-metri-gal/issues"
 dev-repo: "git://github.com/juliojgd/an-metri-gal.git"
 license: "Apache License 2.0"
+depends: [
+  "ocaml" {>= "5.2.1"}
+  "dune" {>= "3.0"}
+  "alcotest" {with-test}
+  "bisect_ppx" {with-test}
+]
+build: [
+  ["dune" "build" "-p" name "-j" jobs]
+  ["dune" "runtest" "-p" name "-j" jobs] {with-test}
+]

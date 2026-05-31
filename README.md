@@ -130,7 +130,7 @@ Asimismo puede destacarse que aunque el analizador ha sido pensado para versos e
 1999 - 2017 Julio José Gómez Díaz
 
 ## Build
-   See [build instructions](src/BUILD.md)
+   See [build instructions](BUILD.md)
 
 
 ## Documentation
