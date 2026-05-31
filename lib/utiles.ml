@@ -380,6 +380,33 @@ let solo_vocales st=
   qaux 0;;
 
 
+(* ********************************************************************** *)
+let normaliza_vocales_asonante st =
+  let ob = new cadenaISO st in
+  let rec aux () =
+    let car =
+      try
+        ob#s
+      with
+      | Invalid_argument _ -> ""
+    in
+    if car = "" then
+      ""
+    else
+      let normalizada =
+        if car = "\129\225" then "a"
+        else if car = "\129\237" then "i"
+        else if car = "\129\250" then "u"
+        else if car = "\129\233" then "E"
+        else if car = "\129\243" then "O"
+        else car
+      in
+      normalizada ^ aux ()
+  in
+  aux ()
+;;
+
+
 
 (* ********************************************************************** *)
 let rec todos_iguais lista =
@@ -393,10 +420,14 @@ let riman_en_asonante lista=
      * riman en asonante (s�lo vocales despu�s de s�laba t�nica).
      *
   *)
-  let temp=List.map sin_tildes lista
+  let sin_consonantes =
+    List.map
+      (fun terminacion ->
+        terminacion
+        |> solo_vocales
+        |> normaliza_vocales_asonante)
+      lista
    in
-  let sin_consonantes=List.map solo_vocales temp
-  in
   todos_iguais sin_consonantes;;
 
 (* ********************************************************************** *)
