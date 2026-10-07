@@ -138,25 +138,34 @@ let es_separador st=(List.mem st separadores);;
 
 
 let pon_separadores cade =
-  let rec aux i=
-    if (i<String.length cade)
-    then
-      (
-       if (es_separador (String.sub cade i 1))
-       then Bytes.set (Bytes.of_string cade) i '|'
-       else ();
-       aux (i+1)
-      )
-    else ()
+  (*
+   * Devuelve un string nuevo donde todos los separadores (incluidos ¿ y ¡)
+   * del string que se le pasa se sustituyen por '|'.
+  *)
+  let ob=new cadenaISO cade
   in
-  aux 0
+  let buffer=Buffer.create (String.length cade)
+  in
+  let rec aux ()=
+    match
+      try Some ob#s with Invalid_argument (_) -> None
+    with
+      None -> ()
+    | Some car ->
+	if es_separador car
+	then Buffer.add_char buffer '|'
+	else Buffer.add_string buffer car;
+	aux ()
+  in
+  aux ();
+  Buffer.contents buffer
 ;;
 
 
 (* *************************************************************** *)
 
 (*
-   * Separaci�n de s�labas
+   * Separación de sílabas
    *
    *
 *)
@@ -209,9 +218,9 @@ let analiza cadena =
 
 let quita_acent cade=
   (*
-     * Funci�n que elimina la marca de acentuaci�n de �ltima s�laba acentuada
-     * (obligatoria antes de la �ltima vocal con acento en el verso)
-     * Marcada con un "#". Lo quita para facilitar el contaje de s�labas.
+     * Función que elimina la marca de acentuación de última sílaba acentuada
+     * (obligatoria antes de la última vocal con acento en el verso)
+     * Marcada con un "#". Lo quita para facilitar el contaje de sílabas.
   *)
   let rec qaux d=
     let car=
@@ -229,8 +238,8 @@ let quita_acent cade=
 (* ********************************************************************** *)
 let tras_acento verso=
 (*
-   * Funci�n que devuelve un string con lo que hay en un verso despues de
-   * la se�al de acento.
+   * Función que devuelve un string con lo que hay en un verso despues de
+   * la señal de acento.
    *
 *)
   let l=String.length verso
@@ -252,7 +261,7 @@ let tras_acento verso=
 let cuenta_silabas ver=
 (*
    *
-   * Cuenta las silabas de un verso, en el que analiza separar� las silabas.
+   * Cuenta las silabas de un verso, en el que analiza separará las silabas.
    * Tiene en cuenta sinalefas.
 *)
   let verso=analiza (quita_acent ver)
@@ -305,7 +314,7 @@ let cuenta_silabas ver=
     aux verso
   in
   let prev1= numero_bruto-numero_sinalefas
-      (* Ahora debo tener en cuenta si la palabra es aguda, llana o esr�jula *)
+      (* Ahora debo tener en cuenta si la palabra es aguda, llana o esdrújula *)
   in
   let cuantas_despues=List.length (analiza (tras_acento ver))
   in
@@ -332,7 +341,7 @@ let sin_tildes st=
      * sin tilde.
      *
   *)
-  let lista_equi=[("�","a");("�","e");("�","i");("�","o");("�","u")]
+  let lista_equi=[("\129\225","a");("\225","a");("\129\233","e");("\233","e");("\129\237","i");("\237","i");("\129\243","o");("\243","o");("\129\250","u");("\250","u")]
   in
   let ob=new cadenaISO st
   in
@@ -390,7 +399,7 @@ let rec todos_iguais lista =
 let riman_en_asonante lista=
   (*
      * Funcion que devuelve true  si la lista de terminaciones de verso
-     * riman en asonante (s�lo vocales despu�s de s�laba t�nica).
+     * riman en asonante (sólo vocales después de sílaba tónica).
      *
   *)
   let temp=List.map sin_tildes lista
@@ -403,7 +412,7 @@ let riman_en_asonante lista=
 let riman_en_consonante lista=
   (*
      * Funcion que devuelve true  si la lista de terminaciones de verso
-     * riman en consonante (todas letras despues de s�laba t�nica).
+     * riman en consonante (todas letras despues de sílaba tónica).
      *
   *)
   let temp=List.map sin_tildes lista
@@ -418,7 +427,7 @@ let trata_verso ver=
      *  un verso.
      *
   *)
-  (cuenta_silabas  ver,sin_tildes (tras_acento ver));;
+  (cuenta_silabas  ver,tras_acento ver);;
 
 
 (* ********************************************************************** *)
@@ -445,7 +454,7 @@ let num_versos estrofa=
 (* ********************************************************************** *)
 let encaja est esq=
   (*
-     *  Esta funci�n filtra y devuelve true para los esquemas que
+     *  Esta función filtra y devuelve true para los esquemas que
      *  coinciden en el arte (mayor o menor) de sus corresp. versos.
      *
   *)
@@ -479,8 +488,8 @@ let rec rima_con_alguno term est arra donde letra=
 (* ********************************************************************** *)
 let crea_su_esquema est=
   (*
-     *  Funci�n que devuelve una lista de caracteres con el esquema de rima
-     *  de la estrofa que se le pasa (lista de pares (num_s�labas,terminaci�n))
+     *  Función que devuelve una lista de caracteres con el esquema de rima
+     *  de la estrofa que se le pasa (lista de pares (num_sílabas,terminación))
      *
      *
 *)
@@ -525,7 +534,7 @@ let identifica_estrofa est=
   in
   let rec recorre p=
     match p with
-      []             -> ("Estrofa Desco�ecida ",mi_estructura,"CO")
+      []             -> ("Estrofa Descoñecida ",mi_estructura,"CO")
     |	(nm,l1,ri)::l  ->
 	if (List.for_all2 (function a->function b->(a= b)) mi_estructura l1)
 	then
