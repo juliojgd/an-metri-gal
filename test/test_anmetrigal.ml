@@ -45,8 +45,14 @@ let test_analiza_nie () =
   check (list string) "syllables with ñ" ["ca"; "mi"; "\241o"] (Lib.Utiles.analiza "cami\241o")
 
 let test_pon_separadores () =
-  check string "¿ treated as separator" "canta| " (Lib.Utiles.pon_separadores "canta\191 ");
-  check string "¡ treated as separator" "|canta" (Lib.Utiles.pon_separadores "\161canta")
+  check string "¿ treated as separator (latin-1 form)" "canta| "
+    (Lib.Utiles.pon_separadores "canta\191 ");
+  check string "¡ treated as separator (latin-1 form)" "|canta"
+    (Lib.Utiles.pon_separadores "\161canta");
+  check string "¿ treated as separator (internal 2-byte form)" "canta| "
+    (Lib.Utiles.pon_separadores "canta\129\191 ");
+  check string "¡ treated as separator (internal 2-byte form)" "|canta"
+    (Lib.Utiles.pon_separadores "\129\161canta")
 
 let test_trata_verso_conserves_tildes () =
   check string "rhyme tail keeps accent marks" "i\243n" (snd (Lib.Utiles.trata_verso "cam#i\243n"))
