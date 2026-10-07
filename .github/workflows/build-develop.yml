@@ -2,7 +2,9 @@ name: Build develop workflow
 
 on:
   pull_request:
-    types: [closed]
+    # PRs must be verified with the full build/test suite before merge,
+    # not only after being closed (see issue #25).
+    types: [opened, synchronize, reopened, closed]
     branches: ['develop','main']
   workflow_dispatch:
     inputs:
@@ -25,26 +27,23 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use OCaml ${{ matrix.ocaml-compiler }}
         uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
-      - run: opam install . --deps-only --with-doc --with-test
-      
-      - name: Install dune
-        run: |
-          opam install dune
-          eval $(opam env)
-          dune --version
-          
+      - name: Install dependencies
+        # No --with-doc: odoc and per-dependency docs are not needed for
+        # build/test verification and are the slowest part of the setup.
+        run: opam install . --deps-only --with-test
+
       - name: Build AnMetriGal
         run: |
           eval "$(opam env)"
           dune --version
-          dune build _build/default/bin/anmetrigal.exe --verbose
+          dune build --verbose
 
       - name: Run tests
         run: |
