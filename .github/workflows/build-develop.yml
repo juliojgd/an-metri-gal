@@ -2,7 +2,9 @@ name: Build develop workflow
 
 on:
   pull_request:
-    types: [closed]
+    # PRs must be verified with the full build/test suite before merge,
+    # not only after being closed (see issue #25).
+    types: [opened, synchronize, reopened, closed]
     branches: ['develop','main']
   workflow_dispatch:
     inputs:
@@ -25,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Use OCaml ${{ matrix.ocaml-compiler }}
         uses: ocaml/setup-ocaml@v3
@@ -44,7 +46,7 @@ jobs:
         run: |
           eval "$(opam env)"
           dune --version
-          dune build _build/default/bin/anmetrigal.exe --verbose
+          dune build --verbose
 
       - name: Run tests
         run: |
