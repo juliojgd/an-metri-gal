@@ -30,11 +30,20 @@ let test_tras_acento () =
 let test_solo_vocales () =
   check string "keep vowels" "aioaa" (Lib.Utiles.solo_vocales "cancionada")
 
+let test_normaliza_vocales_asonante () =
+  check string "open e and o are distinct" "EOaeiu" (Lib.Utiles.normaliza_vocales_asonante "\129\233\129\243\129\225e\129\237\129\250")
+
 let test_riman_asonante_true () =
   check bool "same assonance" true (Lib.Utiles.riman_en_asonante ["casa"; "pata"])
 
 let test_riman_asonante_false () =
   check bool "different assonance" false (Lib.Utiles.riman_en_asonante ["casa"; "cielo"])
+
+let test_riman_asonante_open_closed_distinction () =
+  check bool
+    "open and closed galician vowels do not match"
+    false
+    (Lib.Utiles.riman_en_asonante ["f\129\233r"; "fer"])
 
 let test_riman_consonante_true () =
   check bool "same ending" true (Lib.Utiles.riman_en_consonante ["canto"; "canto"])
@@ -81,8 +90,10 @@ let () =
       test_case "analiza" `Quick test_analiza;
       test_case "tras_acento" `Quick test_tras_acento;
       test_case "solo_vocales" `Quick test_solo_vocales;
+      test_case "normaliza_vocales_asonante" `Quick test_normaliza_vocales_asonante;
       test_case "riman asonante true" `Quick test_riman_asonante_true;
       test_case "riman asonante false" `Quick test_riman_asonante_false;
+      test_case "riman asonante open/closed" `Quick test_riman_asonante_open_closed_distinction;
       test_case "riman consonante true" `Quick test_riman_consonante_true;
       test_case "riman consonante false" `Quick test_riman_consonante_false;
       test_case "trata_verso" `Quick test_trata_verso;
