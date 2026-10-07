@@ -34,14 +34,11 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-compiler }}
 
-      - run: opam install . --deps-only --with-doc --with-test
-      
-      - name: Install dune
-        run: |
-          opam install dune
-          eval $(opam env)
-          dune --version
-          
+      - name: Install dependencies
+        # No --with-doc: odoc and per-dependency docs are not needed for
+        # build/test verification and are the slowest part of the setup.
+        run: opam install . --deps-only --with-test
+
       - name: Build AnMetriGal
         run: |
           eval "$(opam env)"
