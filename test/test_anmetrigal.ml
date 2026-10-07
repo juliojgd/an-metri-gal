@@ -30,6 +30,37 @@ let test_tras_acento () =
 let test_solo_vocales () =
   check string "keep vowels" "aioaa" (Lib.Utiles.solo_vocales "cancionada")
 
+let test_sin_tildes () =
+  check string "strip accents (internal 2-byte form)" "aeiou"
+    (Lib.Utiles.sin_tildes "\129\225\129\233\129\237\129\243\129\250");
+  check string "strip accents (bare latin-1 form)" "aeiou"
+    (Lib.Utiles.sin_tildes "\225\233\237\243\250");
+  check string "strip accents in a word" "camion" (Lib.Utiles.sin_tildes "cami\243n")
+
+let test_es_consonante_nie () =
+  check bool "internal encoded ñ is consonant" true (Lib.Utiles.es_consonante "\129\241");
+  check bool "latin-1 ñ is consonant" true (Lib.Utiles.es_consonante "\241")
+
+let test_analiza_nie () =
+  check (list string) "syllables with ñ" ["ca"; "mi"; "\241o"] (Lib.Utiles.analiza "cami\241o")
+
+let test_pon_separadores () =
+  check string "¿ treated as separator (latin-1 form)" "canta| "
+    (Lib.Utiles.pon_separadores "canta\191 ");
+  check string "¡ treated as separator (latin-1 form)" "|canta"
+    (Lib.Utiles.pon_separadores "\161canta");
+  check string "¿ treated as separator (internal 2-byte form)" "canta| "
+    (Lib.Utiles.pon_separadores "canta\129\191 ");
+  check string "¡ treated as separator (internal 2-byte form)" "|canta"
+    (Lib.Utiles.pon_separadores "\129\161canta")
+
+let test_trata_verso_conserves_tildes () =
+  check string "rhyme tail keeps accent marks" "i\243n" (snd (Lib.Utiles.trata_verso "cam#i\243n"))
+
+let test_identifica_estrofa_desco () =
+  let nombre, _, _ = Lib.Utiles.identifica_estrofa [] in
+  check string "unknown stanza message is human readable" "Estrofa Descoñecida " nombre
+
 let test_normaliza_vocales_asonante () =
   check string "open e and o are distinct" "EOaeiu" (Lib.Utiles.normaliza_vocales_asonante "\129\233\129\243\129\225e\129\237\129\250")
 
@@ -98,6 +129,12 @@ let () =
       test_case "riman consonante false" `Quick test_riman_consonante_false;
       test_case "trata_verso" `Quick test_trata_verso;
       test_case "trata_estrofa and num_versos" `Quick test_trata_estrofa_and_num_versos;
+      test_case "sin_tildes" `Quick test_sin_tildes;
+      test_case "ñ es consonante" `Quick test_es_consonante_nie;
+      test_case "analiza ñ" `Quick test_analiza_nie;
+      test_case "pon_separadores ¿ ¡" `Quick test_pon_separadores;
+      test_case "trata_verso conserva tildes" `Quick test_trata_verso_conserves_tildes;
+      test_case "mensagem descoñecida" `Quick test_identifica_estrofa_desco;
       test_case "encaja arte menor" `Quick test_encaja_arte_menor;
       test_case "encaja arte mayor" `Quick test_encaja_arte_mayor;
       test_case "identifica_estrofa" `Quick test_identifica_estrofa;

@@ -1,6 +1,6 @@
 opam-version: "2.0"
 name: "anmetrigal"
-version: "0.2.0"
+version: "0.2.1"
 synopsis: "Analise metrico de texto en verso en lingua galega (Galician language) gl-ES"
 maintainer: "juliojgd"
 authors: "juliojgd"

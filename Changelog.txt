@@ -2,3 +2,4 @@ Versión | Descripción
 --------|----------------
 0.01    | Primera versión adaptada a Ocaml 4.02 y Readme.md
 0.2.0   | Upgraded Ocaml to 4.13.1 and Opam to 2.1.2. Dune to 3.4.1. Added Github workflow to build.
+0.2.1   | Fixed corrupted accented characters (U+FFFD) in sin_tildes, consonantes (ñ) and separadores (¿ ¡); pon_separadores now returns the transformed string; rhyme tails keep accent marks; added alcotest tests (sin_tildes, ñ handling, separators, readable unknown-stanza message)
